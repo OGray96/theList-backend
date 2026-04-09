@@ -18,6 +18,7 @@ import { ListPositionHistory } from './list/entities/list-position-history.entit
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
+      url: process.env.DATABASE_URL,
       host: process.env.DATABASE_HOST || 'localhost',
       port: parseInt(process.env.DATABASE_PORT || '5432'),
       username: process.env.DATABASE_USERNAME || 'postgres',
@@ -25,6 +26,7 @@ import { ListPositionHistory } from './list/entities/list-position-history.entit
       database: process.env.DATABASE_NAME || 'thelist',
       entities: [User, ContentItem, Genre, Review, ListEntry, Follow, ListPositionHistory],
       synchronize: process.env.NODE_ENV !== 'production',
+      ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : false,
     }),
     AuthModule,
     UsersModule,

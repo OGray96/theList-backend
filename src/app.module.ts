@@ -16,18 +16,26 @@ import { ListPositionHistory } from './list/entities/list-position-history.entit
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      url: process.env.DATABASE_URL,
-      host: process.env.DATABASE_HOST || 'localhost',
-      port: parseInt(process.env.DATABASE_PORT || '5432'),
-      username: process.env.DATABASE_USERNAME || 'postgres',
-      password: process.env.DATABASE_PASSWORD || 'password',
-      database: process.env.DATABASE_NAME || 'thelist',
-      entities: [User, ContentItem, Genre, Review, ListEntry, Follow, ListPositionHistory],
-      synchronize: true,
-      ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : false,
-    }),
+    TypeOrmModule.forRoot(
+      process.env.DATABASE_URL
+        ? {
+            type: 'postgres',
+            url: process.env.DATABASE_URL,
+            entities: [User, ContentItem, Genre, Review, ListEntry, Follow, ListPositionHistory],
+            synchronize: true,
+            ssl: { rejectUnauthorized: false },
+          }
+        : {
+            type: 'postgres',
+            host: process.env.DATABASE_HOST || 'localhost',
+            port: parseInt(process.env.DATABASE_PORT || '5432'),
+            username: process.env.DATABASE_USERNAME || 'postgres',
+            password: process.env.DATABASE_PASSWORD || 'password',
+            database: process.env.DATABASE_NAME || 'thelist',
+            entities: [User, ContentItem, Genre, Review, ListEntry, Follow, ListPositionHistory],
+            synchronize: true,
+          },
+    ),
     AuthModule,
     UsersModule,
     ContentModule,

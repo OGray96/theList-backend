@@ -25,7 +25,7 @@ import { ListPositionHistory } from './list/entities/list-position-history.entit
       password: process.env.DATABASE_PASSWORD || 'password',
       database: process.env.DATABASE_NAME || 'thelist',
       entities: [User, ContentItem, Genre, Review, ListEntry, Follow, ListPositionHistory],
-      synchronize: process.env.NODE_ENV !== 'production',
+      synchronize: true,
       ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : false,
     }),
     AuthModule,

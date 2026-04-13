@@ -26,6 +26,20 @@ export class UsersService {
     });
   }
 
+  findFeatured(): Promise<User | null> {
+    return this.usersRepo.findOne({ where: { isFeatured: true } });
+  }
+
+  async setFeatured(username: string, isFeatured: boolean): Promise<User> {
+    // Only one user can be featured at a time
+    if (isFeatured) {
+      await this.usersRepo.update({}, { isFeatured: false });
+    }
+    const user = await this.findByUsername(username);
+    user.isFeatured = isFeatured;
+    return this.usersRepo.save(user);
+  }
+
   findAll(): Promise<User[]> {
     return this.usersRepo.find({ order: { createdAt: 'DESC' } });
   }

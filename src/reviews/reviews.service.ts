@@ -118,8 +118,8 @@ export class ReviewsService {
 
       // Create the review linked to the list entry
       const review = manager.create(Review, {
-        body: dto.body,
-        dateReviewed: dto.dateReviewed,
+        body: dto.body ?? '',
+        dateReviewed: dto.dateReviewed ?? new Date().toISOString().split('T')[0],
         reviewerId: userId,
         contentItemId: dto.contentItemId,
         listEntry: savedEntry,

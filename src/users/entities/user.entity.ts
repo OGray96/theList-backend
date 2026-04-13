@@ -38,6 +38,9 @@ export class User {
   isCritic: boolean;
 
   @Column({ default: false })
+  isFeatured: boolean;
+
+  @Column({ default: false })
   isEmailVerified: boolean;
 
   @Column({ type: 'text', nullable: true })

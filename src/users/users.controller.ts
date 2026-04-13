@@ -26,6 +26,13 @@ export class UsersController {
     return critics.map((u) => this.usersService.sanitize(u));
   }
 
+  @Get('featured')
+  async getFeatured() {
+    const user = await this.usersService.findFeatured();
+    if (!user) return null;
+    return this.usersService.sanitize(user);
+  }
+
   @Get()
   @UseGuards(AdminGuard)
   async getAll() {
@@ -83,6 +90,16 @@ export class UsersController {
     @Body() body: { isCritic: boolean },
   ) {
     const user = await this.usersService.setCritic(username, body.isCritic);
+    return { user: this.usersService.sanitize(user) };
+  }
+
+  @Patch(':username/featured')
+  @UseGuards(AdminGuard)
+  async setFeatured(
+    @Param('username') username: string,
+    @Body() body: { isFeatured: boolean },
+  ) {
+    const user = await this.usersService.setFeatured(username, body.isFeatured);
     return { user: this.usersService.sanitize(user) };
   }
 }

@@ -11,11 +11,13 @@ export class CreateReviewDto {
   @IsUUID()
   contentItemId: string;
 
+  @IsOptional()
   @IsString()
-  body: string;
+  body?: string;
 
+  @IsOptional()
   @IsDateString()
-  dateReviewed: string;
+  dateReviewed?: string;
 
   @IsOptional()
   @IsInt()

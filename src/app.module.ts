@@ -22,6 +22,8 @@ import { ListPositionHistory } from './list/entities/list-position-history.entit
             type: 'postgres',
             url: process.env.DATABASE_URL,
             entities: [User, ContentItem, Genre, Review, ListEntry, Follow, ListPositionHistory],
+            migrations: [__dirname + '/migrations/*{.ts,.js}'],
+            migrationsRun: true,
             synchronize: false,
             ssl: { rejectUnauthorized: false },
           }

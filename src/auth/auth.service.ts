@@ -58,10 +58,10 @@ export class AuthService {
 
   async login(dto: LoginDto): Promise<{ user: User; token: string }> {
     const user = await this.usersRepo.findOne({ where: { email: dto.email } });
-    if (!user) throw new UnauthorizedException('Invalid credentials');
+    if (!user) throw new UnauthorizedException('No account found with that email address');
 
     const valid = await bcrypt.compare(dto.password, user.passwordHash);
-    if (!valid) throw new UnauthorizedException('Invalid credentials');
+    if (!valid) throw new UnauthorizedException('Incorrect password');
 
     const token = this.jwtService.sign({
       sub: user.id,

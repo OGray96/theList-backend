@@ -6,6 +6,7 @@ import { ContentModule } from './content/content.module';
 import { GenresModule } from './genres/genres.module';
 import { ReviewsModule } from './reviews/reviews.module';
 import { ListModule } from './list/list.module';
+import { OmdbSeedModule } from './omdb/omdb-seed.module';
 import { User } from './users/entities/user.entity';
 import { ContentItem } from './content/entities/content-item.entity';
 import { Genre } from './genres/entities/genre.entity';
@@ -13,6 +14,7 @@ import { Review } from './reviews/entities/review.entity';
 import { ListEntry } from './list/entities/list-entry.entity';
 import { Follow } from './users/entities/follow.entity';
 import { ListPositionHistory } from './list/entities/list-position-history.entity';
+import { SeedState } from './omdb/seed-state.entity';
 
 @Module({
   imports: [
@@ -21,7 +23,7 @@ import { ListPositionHistory } from './list/entities/list-position-history.entit
         ? {
             type: 'postgres',
             url: process.env.DATABASE_URL,
-            entities: [User, ContentItem, Genre, Review, ListEntry, Follow, ListPositionHistory],
+            entities: [User, ContentItem, Genre, Review, ListEntry, Follow, ListPositionHistory, SeedState],
             migrations: [__dirname + '/migrations/*{.ts,.js}'],
             migrationsRun: true,
             synchronize: false,
@@ -34,7 +36,7 @@ import { ListPositionHistory } from './list/entities/list-position-history.entit
             username: process.env.DATABASE_USERNAME || 'postgres',
             password: process.env.DATABASE_PASSWORD || 'password',
             database: process.env.DATABASE_NAME || 'thelist',
-            entities: [User, ContentItem, Genre, Review, ListEntry, Follow, ListPositionHistory],
+            entities: [User, ContentItem, Genre, Review, ListEntry, Follow, ListPositionHistory, SeedState],
             synchronize: true,
           },
     ),
@@ -44,6 +46,7 @@ import { ListPositionHistory } from './list/entities/list-position-history.entit
     GenresModule,
     ReviewsModule,
     ListModule,
+    OmdbSeedModule,
   ],
 })
 export class AppModule {}

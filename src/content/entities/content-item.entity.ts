@@ -37,6 +37,9 @@ export class ContentItem {
   @Column({ nullable: true })
   coverImageUrl: string | null;
 
+  @Column({ nullable: true, unique: true })
+  imdbId: string | null;
+
   @ManyToMany(() => Genre, (genre) => genre.contentItems, { eager: true })
   @JoinTable({ name: 'content_genres' })
   genres: Genre[];
